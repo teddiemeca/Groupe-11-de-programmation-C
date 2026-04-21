@@ -8,16 +8,16 @@
  *-----------------------------------------------------------------------------
 
  *  MEMBRES DE GROUPE (11) :   PASSAH Kwami David Samuel Yayra GC
-                          AFANGNIBO Dieudonné Marcel IABD
-                          ATCHIKITI Djidjome Pierrette IABD
-                          CHILI Tienpabe Eddie GM
-                          TCHALIM Maare Imenne GM
-                          AGNAVE Mawussé Jason IABD
-                          SEGBEDZI Komi Charles GC
-                          BARBOZA Abdoul-Raouf GC
-                          HONKU Komi Godwin IABD
+                              AFANGNIBO Dieudonné Marcel IABD
+                              ATCHIKITI Djidjome Pierrette IABD
+                              CHILI Tienpabe Eddie GM
+                              TCHALIM Maare Imenne GM
+                              AGNAVE Mawussé Jason IABD
+                              SEGBEDZI Komi Charles GC
+                              BARBOZA Abdoul-Raouf GC
+                              HONKU Komi Godwin IABD
 
- *  DATE           : 20/04/2026
+ *  DATE           : 21/04/2026
 
  *  VERSION        : final
 
@@ -76,6 +76,23 @@ void calculer_moyennes(etudiant*liste, etudiant*cpt, int nb_etudiant)
     for (cpt = liste ; cpt < (liste + nb_etudiants) ; cpt++ )
     {
         cpt->moyenne_brute = 0.45 * cpt->note_dst + 0.55 * cpt->note_examen;
+    }
+}
+
+void calcul_moyenne_definitive(etudiant*liste, int nb_etudiant)
+{
+    for (etudiant* cpt = liste ; cpt < (liste + nb_etudiant) ; cpt++ )
+    {
+        if (cpt->moyenne_brute < 10){
+            cpt->bonus = 1;
+        }
+        else if (cpt->moyenne_brute <= 15){
+            cpt->bonus = 0.5;
+        }
+        else{
+            cpt->bonus = 0.0;
+        }
+        cpt->moyenne_definitive = cpt->moyenne_brute + cpt->bonus;
     }
 }
 
