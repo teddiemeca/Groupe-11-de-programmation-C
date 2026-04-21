@@ -8,11 +8,11 @@
  *-----------------------------------------------------------------------------
 
  *  MEMBRES DE GROUPE (11) :   PASSAH Kwami David Samuel Yayra GC
-                          AFANGNIBO Dieudonn� Marcel IABD
+                          AFANGNIBO Dieudonné Marcel IABD
                           ATCHIKITI Djidjome Pierrette IABD
                           CHILI Tienpabe Eddie GM
                           TCHALIM Maare Imenne GM
-                          AGNAVE Mawuss� Jason IABD
+                          AGNAVE Mawussé Jason IABD
                           SEGBEDZI Komi Charles GC
                           BARBOZA Abdoul-Raouf GC
                           HONKU Komi Godwin IABD
@@ -70,6 +70,7 @@ etudiant saisir_etudiant()
 
 
 //28) Procedure permettant de calculer la moyenne brute de chaque etudiant
+
 void calculer_moyennes(etudiant liste[], int nb_etudiants)
 {
     for (int i = 0; i < nb_etudiants; i++) {
