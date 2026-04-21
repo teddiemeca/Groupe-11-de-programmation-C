@@ -27,7 +27,8 @@
 
  ******************************************************************************/
 
- /*25 Donnons l'algorithme qui repond aux cahiers des charges :
+ 
+/*25 Donnons l'algorithme qui repond aux cahiers des charges :
 
 1. Saisir le nombre N d'étudiants.
 2. Pour chaque étudiant, saisir : numéro de carte, nom, note DST, note Examen.
