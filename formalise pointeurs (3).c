@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/******************************************************************************
+ *                            PROGRAMME EN C
+ *=============================================================================
+ *  TITRE        : Application
+ *-----------------------------------------------------------------------------
+
+ *  MEMBRES DE GROUPE (11) :   PASSAH Kwami David Samuel Yayra GC
+                          AFANGNIBO Dieudonn� Marcel IABD
+                          ATCHIKITI Djidjome Pierrette IABD
+                          CHILI Tienpabe Eddie GM
+                          TCHALIM Maare Imenne GM
+                          AGNAVE Mawuss� Jason IABD
+                          SEGBEDZI Komi Charles GC
+                          BARBOZA Abdoul-Raouf GC
+                          HONKU Komi Godwin IABD
+
+ *  DATE           : 20/04/2026
+
+ *  VERSION        : final
+
+ *  OBJECTIF :Ce programme permet dans un premier temps,la saisie des renseignements
+ avec les notes sur les etudiant dans une UE,ensuite de calculer la moyenne brute et
+ la moyenne finale de l'etudiant
+
+ ******************************************************************************/
+
+ /*25 Donnons l'algorithme qui repond aux cahiers des charges :
+
+1. Saisir le nombre N d'étudiants.
+2. Pour chaque étudiant, saisir : numéro de carte, nom, note DST, note Examen.
+3. Pour chaque étudiant, calculer la moyenne brute = 0.45 x DST + 0.55 x Examen.
+4. Pour chaque étudiant, appliquer le bonus selon la moyenne brute, puis calculer la moyenne définitive.
+5. Calculer la moyenne générale de l'UE (moyenne de toutes les moyennes définitives).
+6. Pour chaque étudiant, afficher s'il valide l'UE ou non selon sa moyenne définitive.*/
+
+
+//26) Declaration de base sans laquelle rien n'est faisable
+
+typedef struct etudiant etudiant;
+struct etudiant{
+    int numero_carte;
+    char nom_prenoms[100];
+    float note_dst;
+    float note_examen;
+    float moyenne_brute;
+    float bonus;
+    float moyenne_definitive;
+} ;
+
+
+//27) Fonction permettant la saisie des informations d'un nouvel etudiant
+
+void saisir_etudiant(etudiant*nouveau)
+{
+
+    printf("Entrez vos informations");
+    printf("\nNuméro de carte : ");
+    scanf("%d", &nouveau->numero_carte);
+    printf("Nom et prénoms : ");
+    scanf(" %[^\n]", nouveau->nom_prenoms);
+    printf("Note DST : ");
+    scanf("%f", &nouveau->note_dst);
+    printf("Note Examen : ");
+    scanf("%f", &nouveau->note_examen);
+
+}
+
+
+//28) Procedure permettant de calculer la moyenne brute de chaque etudiant
+void calculer_moyennes(etudiant*liste, etudiant*cpt, int nb_etudiant)
+{
+
+    for (cpt = liste ; cpt < (liste + nb_etudiants) ; cpt++ )
+    {
+        cpt->moyenne_brute = 0.45 * cpt->note_dst + 0.55 * cpt->note_examen;
+    }
+}
+
