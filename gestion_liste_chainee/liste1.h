@@ -28,20 +28,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Structure d'un élément (Maillon)
+// Structure d'un Ã©lÃ©ment (Maillon)
 typedef struct TMaillon {
-    char donnee[50];
+    char donnee[51];
     struct TMaillon *next;
 } TMaillon;
 
-// Structure de contrôle de la liste
+// Structure de contrÃ´le de la liste
 typedef struct {
     TMaillon *debut;
     TMaillon *fin;
     int taille;
 } TListe;
 
-// Uniquement les prototypes nécessaires
+// Uniquement les prototypes nÃ©cessaires
 void initialisation(TListe *liste);
 int ins_debut_liste(TListe *liste, char *nom);
 int ins_fin_liste(TListe *liste, char *nom);
