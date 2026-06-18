@@ -3,11 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 
 typedef struct composant_polynome CPolynome;
-typedef struct corp_polynome Polynome;
-
 struct composant_polynome{
     int coefficient;
     int exposant;
@@ -15,15 +14,11 @@ struct composant_polynome{
     CPolynome* suivant;
 };
 
-struct corp_polynome{
-    CPolynome*first_C;
-    CPolynome*last;
 
-    int nb_composant;
-};
 
 void vider_buffer();
 void test_polynome(CPolynome* polynome);
+void supprimer_espace (char * str);// ajout pour corriger erreur de creation des polynomes
 void affichage(CPolynome* polynome);
 
 CPolynome* creer_polynome();
@@ -34,3 +29,4 @@ CPolynome* produit_polynome(CPolynome* polynome1,CPolynome* polynome2);
 
 void detruire_polynome(CPolynome* polynome);
 #endif
+
