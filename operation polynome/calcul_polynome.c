@@ -24,14 +24,14 @@
 
 # include "calcul_polynome.h"
 
-// VIDER BUFFER NECESSAIRE POUR EFFACER LE TAMPON APRES UN SCANF
+// VIDER BUFFER NECESSAIRE POUR EFFACER LE TAMPON APRÈS UN SCANF
 void vider_buffer(){
     int c;
     while((c=getchar())!='\n' && c!=EOF);
 }
 
 
-// UTILE POUR VERIFIER SI LE POLYNOME A ETE BEL ET BIEN CREER 
+// UTILE POUR VÉRIFIER SI LE POLYNÔME A ÉTÉ BEL ET BIEN CRÉÉ 
 void test_polynome(CPolynome* polynome)
 {
     if (polynome ==NULL){
@@ -41,13 +41,28 @@ void test_polynome(CPolynome* polynome)
 }
 
 
-// SOLUTION POUR NE PAS REECRIRE TOUTE LA FONCTION DE SOUSTRACTION DE POLYNOME 
+// SOLUTION POUR NE PAS RÉÉCRIRE TOUTE LA FONCTION DE SOUSTRACTION DE POLYNÔME 
 void op_polynome(CPolynome* polynome){
     CPolynome* courant =polynome;
     while(courant != NULL){
         courant->coefficient *=-1;
         courant = courant->suivant;
     }
+}
+
+// Fonction de suppression d'espace dans la chaîne de caractères saisie par l'utilisateur .
+void supprimer_espace(char* str)
+{
+    char* i = str;
+    char* j = str;
+
+    while(*i){
+        if(!isspace((unsigned char)*i)){
+            *j++ = *i;
+        }
+        i++;
+    }
+    *j = '\0';
 }
 
 
