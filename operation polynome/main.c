@@ -33,7 +33,7 @@ void menu() {
     printf(" 2. Saisir/Remplacer le Polynome 2\n");
     printf(" 3. Afficher les polynomes actuels\n");
     printf(" 4. Calculer la SOMME (P1 + P2)\n");
-    printf(" 5. Calculer la SOUSTRACTION (P1 - P2)\n");
+    printf(" 5. Calculer la SOUSTRACTION \n");
     printf(" 6. Calculer la MULTIPLICATION (P1 * P2)\n");
     printf(" 7. Quitter le programme\n");
     printf("======================================================\n");
@@ -88,15 +88,44 @@ int main() {
                 break;
 
             case 5:
-                if (P1 == NULL || P2 == NULL) {
+            {
+                int choixSous;
+                printf("\n--- SOUSTRACTION ---\n");
+                printf("1. P1 - P2\n");
+                printf("2. P2 - P1\n");
+                printf("\nVotre choix : ");
+                scanf("%d", &choixSous);
+
+                CPolynome* resultat = NULL;
+                if (P1 == NULL || P2 == NULL)
+                {
                     printf("Erreur : Veuillez d'abord saisir les deux polynomes (Options 1 et 2).\n");
-                } else {
-                    if (resultat != NULL) detruire_polynome(resultat);
-                    resultat = soustraction_polynome(P1, P2);
-                    printf("\nResultat de la soustraction :\n");
-                    affichage(resultat);
                 }
+                else
+                {
+
+                    if (choixSous == 1)
+                    {
+                        if (resultat != NULL) detruire_polynome(resultat);
+                        resultat = soustraction_polynome(P1, P2);
+                        printf("\nResultat de P1-P2 :\n");
+                        affichage(resultat);
+                    }
+                    else if (choixSous == 2)
+                    {
+                        if (resultat != NULL) detruire_polynome(resultat);
+                        resultat = soustraction_polynome(P2, P1);
+                        printf("\nResultat de P2-P1 :\n");
+                        affichage(resultat);
+                    }
+                    else {
+                        printf("\nChoix invalide !");
+                    }
+
+                }
+
                 break;
+            }
 
             case 6:
                 if (P1 == NULL || P2 == NULL) {
