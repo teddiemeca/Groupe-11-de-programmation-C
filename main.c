@@ -72,8 +72,8 @@ int main() {
 
             case 3:
                 printf("\n--- Affichage des polynomes ---\n");
-                printf("P1 ="); affichage(P1);
-                printf("P2 ="); affichage(P2);
+                printf("P1 ="); afficher_polynome(P1);
+                printf("P2 ="); afficher_polynome(P2);
                 break;
 
             case 4:
@@ -83,7 +83,7 @@ int main() {
                     if (resultat != NULL) detruire_polynome(resultat);
                     resultat = somme_polynome(P1, P2);
                     printf("\nResultat de la somme :\n");
-                    affichage(resultat);
+                    afficher_polynome(resultat);
                 }
                 break;
 
@@ -94,7 +94,7 @@ int main() {
                     if (resultat != NULL) detruire_polynome(resultat);
                     resultat = soustraction_polynome(P1, P2);
                     printf("\nResultat de la soustraction :\n");
-                    affichage(resultat);
+                    afficher_polynome(resultat);
                 }
                 break;
 
@@ -105,7 +105,7 @@ int main() {
                     if (resultat != NULL) detruire_polynome(resultat);
                     resultat = produit_polynome(P1, P2);
                     printf("\nResultat de la multiplication :\n");
-                    affichage(resultat);
+                    afficher_polynome(resultat);
                 }
                 break;
 
@@ -117,7 +117,7 @@ int main() {
                 printf("Option inconnue. Veuillez choisir un nombre entre 1 et 7.\n");
                 break;
         }
-        
+
     } while (choix != 7);
 
     // Libération finale de toute la mémoire dynamique avant de quitter

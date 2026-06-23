@@ -51,83 +51,200 @@ void op_polynome(CPolynome* polynome){
 }
 
 
+void supprimer_espace(char* str)
+{
+    char* i = str;
+    char* j = str;
+
+    while(*i){
+        if(!isspace((unsigned char)*i)){
+            *j++ = *i;
+        }
+        i++;
+    }
+    *j = '\0';
+}
+
+
+void ordonner_polynome(CPolynome* polynome)
+{
+    if (polynome == NULL || polynome->suivant == NULL){
+        return;
+    }
+
+    bool ordre = false;
+    
+    CPolynome* courant;
+
+    while (!ordre){
+        ordre = true;
+        courant = polynome;
+
+        while(courant->suivant != NULL ){
+            if(courant->exposant < (courant->suivant)->exposant){
+
+                int relai_coef = courant->coefficient;
+                courant->coefficient = courant->suivant->coefficient;
+                courant->suivant->coefficient = relai_coef;
+
+                int relai_expo = courant->exposant;
+                courant->exposant = courant->suivant->exposant;
+                courant->suivant->exposant = relai_expo;
+
+                ordre = false;
+            }
+            courant = courant->suivant;
+        }
+    }
+}
+
+
+
+void aide_affichage(CPolynome*courant){
+
+    int coeff = abs(courant->coefficient);
+
+    if(coeff !=0 && courant->exposant !=0){
+
+        if (coeff == 1){
+            printf("x^%d",courant->exposant);
+        }
+        else{
+            printf("%dx^%d",courant->coefficient,courant->exposant);
+        }
+    }
+
+    else if (courant->coefficient != 0 && courant->exposant ==0){
+        printf("%d",courant->coefficient);
+    }
+}
+
+
 // AFFICHER LE POLYNOME 
-void affichage(CPolynome* polynome)
+void afficher_polynome(CPolynome* polynome)
 {
      if(polynome == NULL){
         printf(("aucun polynome enregistrer ."));
         return;
     }
 
+    int premier = 1;
     CPolynome *courant = polynome;
+
     while(courant!=NULL)
     {
-        if(courant->suivant!=NULL){
-            printf(" %dx^%d +",courant->coefficient,courant->exposant);
-        }
-        else{
-            printf(" %dx^%d ",courant->coefficient,courant->exposant);
-        }
+        if (courant->coefficient != 0){
 
+            if (premier){
+                if (courant->coefficient < 0){
+                    printf("-");
+                }
+                premier = 0;
+            }
+            else{
+                if (courant->coefficient > 0){
+                    printf(" + ");
+                }
+                else if (courant->coefficient < 0){
+                    printf(" - ");
+                }
+            }
+            aide_affichage(courant);
+
+        }
+        
         courant = courant->suivant;
+    }
+    if (premier)
+    {
+        printf("0");
     }
     printf("\n");
 }
+
+
 
 
 // CREER UN POLYNOME 
 CPolynome * creer_polynome()
 {
     char chaine_p[250];
-    int char_lu,coef,exp;
-    static int i=1;
-
+    int char_lu, coef, exp;
+    static int i = 1;
 
     printf("-------- veuillez saisir le polynome ----------\n");
-    printf("\nNB: respecter cette structure : ax^n + bx^(n-1) + .... + kx^0 ,a,b,..,k appartient a N\n");
-    printf("polynome %d :",i);
+    printf("\nNB: respecter cette structure : ax^n + bx^(n-1) + .... + kx^0\n");
+    printf("polynome %d :", i);
 
-    while(scanf("%249[^\n]",chaine_p)!=1){
+    while(scanf("%249[^\n]", chaine_p) != 1){
         vider_buffer();
         return NULL;
     }
     
     vider_buffer();
 
+    // Suppression de tous les espaces
+    supprimer_espace(chaine_p);
+
     i++;
     char* cursor = chaine_p;
     CPolynome* tete = NULL;
-    CPolynome* courant_P  = NULL;
+    CPolynome* courant_P = NULL;
 
 
-    while(sscanf(cursor,"%dx^%d%n",&coef,&exp,&char_lu)==2 || sscanf(cursor,"%dX^%d%n",&coef,&exp,&char_lu) == 2)
+
+    while (*cursor!='\0')
+    
     {
-        cursor+=char_lu;
-        while(*cursor == ' ' || *cursor == '+'){
+        // Saut du signe '+' pour le prochain tour
+        if (*cursor == '+') {
             cursor++;
         }
 
-        CPolynome* nouveau= (CPolynome*)malloc(sizeof(CPolynome));
-        test_polynome(nouveau);
+        if(sscanf(cursor, "%dx^%d%n", &coef, &exp, &char_lu) == 2 || sscanf(cursor, "%dX^%d%n", &coef, &exp, &char_lu) == 2 ){
+            cursor+=char_lu;
+        }
 
+        else if (sscanf(cursor, "x^%d%n", &exp, &char_lu) == 1 || sscanf(cursor, "X^%d%n", &exp, &char_lu) == 1){
+            coef = 1;
+            cursor+=char_lu;
+        }
+
+        else if(sscanf(cursor, "-x^%d%n", &exp, &char_lu) == 1 || sscanf(cursor, "-X^%d%n", &exp, &char_lu) == 1){
+            coef = -1;
+            cursor +=char_lu;
+        }
+
+        else if(sscanf(cursor, "%d%n", &coef, &char_lu) == 1 ){
+            exp = 0;
+            cursor+=char_lu;
+        }
+        else{
+            printf(" Erreur de synthaxe detectee au niveau de %s",cursor);
+            break;
+        }
+        
+
+        CPolynome* nouveau = (CPolynome*)malloc(sizeof(CPolynome));
+        test_polynome(nouveau);
 
         nouveau->coefficient = coef;
         nouveau->exposant = exp;
         nouveau->suivant = NULL;
 
-        if(tete == NULL)
-        {
+        if (tete == NULL) {
             tete = nouveau;
+        } else {
+            courant_P->suivant = nouveau;
         }
-        else{
-            courant_P->suivant= nouveau;
-        }
-        courant_P=nouveau;
+        courant_P = nouveau;
     }
-
+    
+    ordonner_polynome(tete);
 
     return tete;
 }
+
 
 
 
@@ -291,7 +408,6 @@ void detruire_polynome(CPolynome* polynome)
         free(assuprimer);
     }
 }
-
 
 
 
