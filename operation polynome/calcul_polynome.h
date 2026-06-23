@@ -6,14 +6,21 @@
 #include <ctype.h>
 
 
-typedef struct composant_polynome CPolynome;
-struct composant_polynome{
+typedef struct CPolynome CPolynome;
+struct CPolynome
+{
     int coefficient;
     int exposant;
 
     CPolynome* suivant;
 };
 
+typedef struct TCorps TCorps;
+struct TCorps
+{
+    CPolynome*tete;
+    CPolynome*fin;
+};
 
 
 void vider_buffer();
